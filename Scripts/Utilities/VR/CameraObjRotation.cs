@@ -11,7 +11,7 @@ namespace Jambav.Utilities
         public float speed = 5;
         void Start()
         {
-#if UNITY_EDITOR
+#if UNITY_EDITOR && !UNITY_EDITOR_WIN
             mainCamera.gameObject.SetActive(false);
 #else
          gameObject.SetActive(false);
