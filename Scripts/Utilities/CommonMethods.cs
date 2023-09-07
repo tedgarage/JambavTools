@@ -21,7 +21,7 @@ namespace Jambav.Utilities
 
             var count1 = shuffleArray.Count;
             var last = count - 1;
-            for (var i = 1; i < last; ++i) //It was 0;
+            for (var i = 0; i < last; ++i) //It was 0;
             {
                 var r = UnityEngine.Random.Range(i, count1);
                 var tmp = shuffleArray[i];
