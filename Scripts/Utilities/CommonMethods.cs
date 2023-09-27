@@ -10,7 +10,12 @@ namespace Jambav.Utilities
 {
     public static class CommonMethods
     {
-
+        // Example Path: "ProductSprites/Zoho_{0}"
+        public static Sprite GetProductSprite(string path, string productName)
+        {
+            return Resources.Load<Sprite>(string.Format(path, productName));
+        }
+        
         public static List<int> GetShuffledIndeiesArray(int count = 0)
         {
             List<int> shuffleArray = new List<int>();
