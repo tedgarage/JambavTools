@@ -3,20 +3,59 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// Commen methods for all projects
+/// Common methods for all projects
 /// </summary>
 
 namespace Jambav.Utilities
 {
     public static class CommonMethods
     {
+        #region  UNITY_RELATED_METHODS
         // Example Path: "ProductSprites/Zoho_{0}"
-        public static Sprite GetProductSprite(string path, string productName)
+        public static T GetResource<T>(string _path, string _resourceName) where T : Object
         {
-            return Resources.Load<Sprite>(string.Format(path, productName));
+            return Resources.Load<T>(string.Format(_path, _resourceName));
         }
-        
-        public static List<int> GetShuffledIndeiesArray(int count = 0)
+        public static Transform GetObjectForReuse(GameObject _objectPrefab, Transform _collectorObject, Transform _holderObject)
+        {
+            Transform returnObj;
+            if (_collectorObject.childCount == 0)
+            {
+                returnObj = Object.Instantiate(_objectPrefab, _holderObject).transform;
+            }
+            else
+            {
+                returnObj = _collectorObject.GetChild(0);
+                returnObj.SetParent(_holderObject);
+                returnObj.gameObject.SetActive(true);
+            }
+            return returnObj;
+        }
+        public static void DespawnObject(Transform _object, Transform _collectorObject)
+        {
+            _object.SetParent(_collectorObject);
+            _object.localPosition = Vector3.zero;
+        }
+
+        public static bool IsLandscapeActive()
+        {
+#if UNITY_IOS || UNITY_ANDROID
+            return Screen.width > Screen.height;
+#else
+            return true;
+#endif
+        }
+
+        public static void OpenUrl(string url)
+        {
+            url = System.Uri.EscapeUriString(url);
+            Application.OpenURL(url);
+        }
+
+        #endregion
+
+        #region  COMMON METHODS
+        public static List<int> GetShuffledIndiesList(int count = 0)
         {
             List<int> shuffleArray = new List<int>();
             for (int i = 0; i < count; i++)
@@ -50,44 +89,6 @@ namespace Jambav.Utilities
             }
             return list;
         }
-
-        public static Transform GetObjectForReuse(GameObject _objectPrefab, Transform _collectorObject, Transform _holderObject)
-        {
-            Transform returnObj;
-            if (_collectorObject.childCount == 0)
-            {
-                returnObj = Object.Instantiate(_objectPrefab, _holderObject).transform;
-            }
-            else
-            {
-                returnObj = _collectorObject.GetChild(0);
-                returnObj.SetParent(_holderObject);
-                returnObj.gameObject.SetActive(true);
-            }
-            return returnObj;
-        }
-
-        public static void DespawnObject(Transform _object, Transform _collectorObject)
-        {
-            _object.SetParent(_collectorObject);
-            _object.localPosition = Vector3.zero;
-        }
-
-        public static bool IsLandscapeActive()
-        {
-#if UNITY_IOS || UNITY_ANDROID
-            return Screen.width > Screen.height;
-#else
-        return true;
-#endif
-        }
-
-        public static void OpenUrl(string url)
-        {
-            url = System.Uri.EscapeUriString(url);
-            Application.OpenURL(url);
-        }
-
         public static Color HexToColor(string hex, float alpha = 1)
         {
             byte r = byte.Parse(hex.Substring(0, 2), System.Globalization.NumberStyles.HexNumber);
@@ -99,6 +100,8 @@ namespace Jambav.Utilities
 
             return color;
         }
+        #endregion
     }
+
 }
 
