@@ -17,7 +17,8 @@ namespace Jambav.Editor
         public static void CreateDefaultFoldersInProject()
         {
 
-            CreateDir("_Projects", "Scenes", "Sprites", "Scripts", "Prefabs", "Audios", "Fonts");
+            CreateDir("_Projects", "Scenes", "Sprites", "_Scripts", "Prefabs", "Audios", "Fonts");
+            CreateDir( "_Projects/_Scripts", "__Manages", "_Handlers", "Commons","Helpers","PrefabScripts");
             if (EditorSettings.defaultBehaviorMode == EditorBehaviorMode.Mode3D)
             {
                 CreateDir("_Projects", "Models", "Textures", "Materials");
