@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2782935007586063124}
   - component: {fileID: 5591662741731746362}
   - component: {fileID: 1278918224251527753}
-  - component: {fileID: 6110443272902142873}
+  - component: {fileID: 182772003066850802}
   m_Layer: 0
   m_Name: MainImage
   m_TagString: Untagged
@@ -59,7 +59,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 2100000, guid: 2c59325cff8447d47899d7e518a87833, type: 2}
+  m_Material: {fileID: 2100000, guid: d2b0ccbb658a84489ab36039ab590962, type: 2}
   m_Color: {r: 0.07450981, g: 0.35686275, b: 0.9019608, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
@@ -77,7 +77,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &6110443272902142873
+--- !u!114 &182772003066850802
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -86,7 +86,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4398922127918236083}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 56549cdaaf4d81e4387b02698fd3daa0, type: 3}
+  m_Script: {fileID: 11500000, guid: 2db666f1badb7422fa2c4fc9868a99be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   borderRadius: {x: 25, y: 25, z: 25, w: 25}
@@ -101,7 +101,7 @@ GameObject:
   - component: {fileID: 674222213994087441}
   - component: {fileID: 6528274712884048338}
   - component: {fileID: 728101514876377638}
-  - component: {fileID: 5228816876413027615}
+  - component: {fileID: 19685050043249518}
   m_Layer: 0
   m_Name: Image
   m_TagString: Untagged
@@ -148,7 +148,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 2100000, guid: 2c59325cff8447d47899d7e518a87833, type: 2}
+  m_Material: {fileID: 2100000, guid: d2b0ccbb658a84489ab36039ab590962, type: 2}
   m_Color: {r: 0.17254902, g: 0.17254902, b: 0.17254902, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
@@ -166,7 +166,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &5228816876413027615
+--- !u!114 &19685050043249518
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -175,7 +175,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4716111988886675771}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 56549cdaaf4d81e4387b02698fd3daa0, type: 3}
+  m_Script: {fileID: 11500000, guid: 2db666f1badb7422fa2c4fc9868a99be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   borderRadius: {x: 30, y: 30, z: 30, w: 30}
@@ -326,7 +326,7 @@ GameObject:
   - component: {fileID: 8023703374651916011}
   - component: {fileID: 2308038100947166180}
   - component: {fileID: 4585148149366971211}
-  - component: {fileID: 4896547741995288931}
+  - component: {fileID: 5799160782436039626}
   m_Layer: 0
   m_Name: Image (1)
   m_TagString: Untagged
@@ -373,7 +373,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 2100000, guid: 2c59325cff8447d47899d7e518a87833, type: 2}
+  m_Material: {fileID: 2100000, guid: d2b0ccbb658a84489ab36039ab590962, type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
@@ -391,7 +391,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &4896547741995288931
+--- !u!114 &5799160782436039626
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -400,7 +400,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6542037271926629918}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 56549cdaaf4d81e4387b02698fd3daa0, type: 3}
+  m_Script: {fileID: 11500000, guid: 2db666f1badb7422fa2c4fc9868a99be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   borderRadius: {x: 30, y: 30, z: 30, w: 30}

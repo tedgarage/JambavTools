@@ -5,7 +5,6 @@ using UnityEngine.SceneManagement;
 using DG.Tweening;
 using System;
 using Jambav.Utilities;
-using OVR;
 
 namespace Jambav.Settings
 {
