@@ -1,7 +1,9 @@
 {
     "name": "Jambav.Editor",
     "rootNamespace": "",
-    "references": [],
+    "references": [
+       "Unity.Localization"
+    ],
     "includePlatforms": [
         "Editor"
     ],

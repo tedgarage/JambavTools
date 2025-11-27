@@ -74,31 +74,8 @@ namespace Jambav.Utilities
             }
             return shuffleArray;
         }
-        public static List<T> ShuffleList<T>(List<T> list)
-        {
-            var count1 = list.Count;
-            var last = list.Count - 1;
-            for (var i = 0; i < last; ++i)
-            {
-                var r = UnityEngine.Random.Range(i, count1);
-                var tmp = list[i];
-                list[i] = list[r];
-                list[r] = tmp;
-
-            }
-            return list;
-        }
-        public static Color HexToColor(string hex, float alpha = 1)
-        {
-            byte r = byte.Parse(hex.Substring(0, 2), System.Globalization.NumberStyles.HexNumber);
-            byte g = byte.Parse(hex.Substring(2, 2), System.Globalization.NumberStyles.HexNumber);
-            byte b = byte.Parse(hex.Substring(4, 2), System.Globalization.NumberStyles.HexNumber);
-
-            Color color = new Color(r / 255f, g / 255f, b / 255f);
-            color.a = alpha;
-
-            return color;
-        }
+    
+        
         #endregion
     }
 
