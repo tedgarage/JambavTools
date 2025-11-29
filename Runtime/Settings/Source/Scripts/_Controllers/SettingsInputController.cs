@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using DG.Tweening;
 using System;
 using Jambav.Utilities;
 
@@ -54,7 +53,8 @@ namespace Jambav.Settings
     {
 
         RestartGameInput();
-        LongPressThumbAndTrigger();
+        if(SettingsManager.sharedInstance.canViewSettings)
+            LongPressThumbAndTrigger();
 
     }
     private void RestartGameInput()
@@ -331,7 +331,7 @@ namespace Jambav.Settings
     {
         print("Restarting Game");
         restartedCompleted = false;
-        DOTween.KillAll();
+        SettingsManager.sharedInstance.OnRestartStart?.Invoke();
         yield return new WaitForSeconds(1f);
         ReloadScene();
         yield return new WaitForSeconds(2);

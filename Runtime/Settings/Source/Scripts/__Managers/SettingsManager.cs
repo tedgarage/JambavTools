@@ -10,9 +10,12 @@ namespace Jambav.Settings
 
         public LocalizationSelector LocalizationSelector;
         [SerializeField] string defaultBundleIdentifier = "com.jambav.vrzoho";
+        [HideInInspector] public bool canViewSettings = true;
 
         public Action GameReadyToPlay;
-
+        public Action OnRestartStart;
+        
+        
         private MessagePanelHandler messagePanelHandler;
         private LoaderPanelHandler loaderPanelHandler;
         private ToastPanelHandler toastPanelHandler;
