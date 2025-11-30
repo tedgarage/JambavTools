@@ -202,7 +202,7 @@ namespace Jambav.Settings
             return DateTime.MinValue;
         }
 
-        internal string GetDeviceName()
+        public string GetDeviceName()
         {
             return GetStringPreference(CommonConstants.DeviceNameKey, "");
         }
@@ -245,6 +245,10 @@ namespace Jambav.Settings
         public bool DoseGameReadyToPlay()
         {
             return codeValid && deviceNameValid && internetConnectionValid;
+        }
+        public string GamePlayDataPath()
+        {
+            return PlayerPrefs.GetString(CommonConstants.gameplayDataPathKey, "");
         }
 
         #endregion
