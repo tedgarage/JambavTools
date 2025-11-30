@@ -242,8 +242,10 @@ namespace Jambav.Settings
             OpenSettingsForDeviceName();
             codeValid = true;
         }
-
-
+        public bool DoseGameReadyToPlay()
+        {
+            return codeValid && deviceNameValid && internetConnectionValid;
+        }
 
         #endregion
     }

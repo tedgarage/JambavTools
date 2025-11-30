@@ -336,7 +336,11 @@ namespace Jambav.Settings
         ReloadScene();
         yield return new WaitForSeconds(2);
         restartedCompleted = true;
-
+        
+        if(SettingsManager.sharedInstance.DoseGameReadyToPlay())
+        {
+            SettingsManager.sharedInstance.GameReadyToPlay?.Invoke();
+        }
     }
 }
 }
