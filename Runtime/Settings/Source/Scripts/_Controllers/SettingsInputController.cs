@@ -18,11 +18,11 @@ namespace Jambav.Settings
     private int currentPressedButtonIndex = -1;
 
     // Game restart button Sequence
-    // private List<OVRInput.RawButton> buttonOrderSeqList = new List<OVRInput.RawButton> { OVRInput.RawButton.B, OVRInput.RawButton.A, OVRInput.RawButton.B, OVRInput.RawButton.A, OVRInput.RawButton.RHandTrigger };
-    private List<KeyCode> buttonOrderSeqList = new List<KeyCode> { KeyCode.T, KeyCode.Y, KeyCode.T, KeyCode.Y, KeyCode.Return };
+    private List<OVRInput.RawButton> buttonOrderVRSeqList = new List<OVRInput.RawButton> { OVRInput.RawButton.B, OVRInput.RawButton.A, OVRInput.RawButton.B, OVRInput.RawButton.A, OVRInput.RawButton.RHandTrigger };
+    private List<KeyCode> buttonOrderEditorSeqList = new List<KeyCode> { KeyCode.T, KeyCode.Y, KeyCode.T, KeyCode.Y, KeyCode.Return };
 
     // Settings ToggleButtonSeq
-    private List<OVRInput.RawButton> toggleButtonVrDevice = new List<OVRInput.RawButton> { OVRInput.RawButton.A,
+    private List<OVRInput.RawButton> toggleButtonVRDevice = new List<OVRInput.RawButton> { OVRInput.RawButton.A,
                 OVRInput.RawButton.RHandTrigger};
     private List<KeyCode> toggleButtonForEditor = new List<KeyCode> {    KeyCode.A,
                 KeyCode.S, }; 
@@ -57,75 +57,103 @@ namespace Jambav.Settings
             LongPressThumbAndTrigger();
 
     }
+
+    private bool IsVR()
+    {
+        try
+        {
+            return OVRManager.isHmdPresent;
+        }
+        catch
+        {
+            return false;
+        }
+    }
+
     private void RestartGameInput()
     {
-        
-        if (restartedCompleted)
-        {
-            
-            if (currentPressedButtonIndex == -1)
-            {
-                
-                // if (OVRInput.GetUp(OVRInput.RawButton.Any))
-                if (Input.anyKey)
-                {
+        if (!restartedCompleted) return;
 
-                    // if (OVRInput.GetUp(buttonOrderSeqList[0]))
-                    if (Input.GetKeyDown(buttonOrderSeqList[0]))
+            // Split logic between VR (OVRInput) and Editor/standalone (KeyCode/Input)
+            if (IsVR())
+            {
+                // VR device input using OVRInput and buttonOrderVRSeqList
+                if (currentPressedButtonIndex == -1)
+                {
+                    if (OVRInput.GetDown(buttonOrderVRSeqList[0]))
                     {
-                        print("Dennis --- Button Pressed   -" + currentPressedButtonIndex);
+                        Debug.Log("Dennis --- VR Button Pressed -" + currentPressedButtonIndex);
                         currentPressedButtonIndex = 0;
                         waitingTimeForNextButtonPress = defaultWaitingTimeForNextButtonPress;
-
                     }
                 }
-
-            }
-            else
-            {
-                
-                waitingTimeForNextButtonPress -= Time.deltaTime;
-                if (waitingTimeForNextButtonPress < 0)
+                else
                 {
-                    currentPressedButtonIndex = -1;
-                    print("Dennis --- Time done");
-                }
-                // if (OVRInput.GetUp(OVRInput.RawButton.Any))
-                if (Input.anyKeyDown)
-                {
-
-                    // if (OVRInput.GetUp(buttonOrderSeqList[currentPressedButtonIndex + 1]))
-                    if (Input.GetKeyDown(buttonOrderSeqList[currentPressedButtonIndex + 1]))
+                    waitingTimeForNextButtonPress -= Time.deltaTime;
+                    if (waitingTimeForNextButtonPress < 0)
                     {
+                        currentPressedButtonIndex = -1;
+                        Debug.Log("Dennis --- Time done");
+                    }
 
-                        print(" -" + currentPressedButtonIndex);
+                    if (OVRInput.GetDown(buttonOrderVRSeqList[Mathf.Min(currentPressedButtonIndex + 1, buttonOrderVRSeqList.Count - 1)]))
+                    {
                         currentPressedButtonIndex++;
-
                         waitingTimeForNextButtonPress = defaultWaitingTimeForNextButtonPress;
 
-
-                        if (buttonOrderSeqList.Count - 1 == currentPressedButtonIndex)
+                        if (buttonOrderVRSeqList.Count - 1 == currentPressedButtonIndex)
                         {
-                            StartCoroutine( RestartGame());
+                            StartCoroutine(RestartGame());
                             currentPressedButtonIndex = -1;
                         }
-
                     }
-                    else
+                    else if (OVRInput.GetDown(OVRInput.RawButton.Any))
                     {
+                        // any other VR button - reset sequence
                         currentPressedButtonIndex = -1;
                     }
                 }
+            }
+            else
+            {
+                // Editor / Standalone input using KeyCode list
+                if (currentPressedButtonIndex == -1)
+                {
+                    if (Input.GetKeyDown(buttonOrderEditorSeqList[0]))
+                    {
+                        Debug.Log("Dennis --- Button Pressed -" + currentPressedButtonIndex);
+                        currentPressedButtonIndex = 0;
+                        waitingTimeForNextButtonPress = defaultWaitingTimeForNextButtonPress;
+                    }
+                }
+                else
+                {
+                    waitingTimeForNextButtonPress -= Time.deltaTime;
+                    if (waitingTimeForNextButtonPress < 0)
+                    {
+                        currentPressedButtonIndex = -1;
+                        Debug.Log("Dennis --- Time done");
+                    }
 
+                    if (Input.GetKeyDown(buttonOrderEditorSeqList[Mathf.Min(currentPressedButtonIndex + 1, buttonOrderEditorSeqList.Count - 1)]))
+                    {
+                        currentPressedButtonIndex++;
+                        waitingTimeForNextButtonPress = defaultWaitingTimeForNextButtonPress;
 
-
+                        if (buttonOrderEditorSeqList.Count - 1 == currentPressedButtonIndex)
+                        {
+                            StartCoroutine(RestartGame());
+                            currentPressedButtonIndex = -1;
+                        }
+                    }
+                    else if (Input.anyKeyDown)
+                    {
+                        // wrong key - reset
+                        currentPressedButtonIndex = -1;
+                    }
+                }
             }
         }
-
-    }
-
-
-
 
 
     public void LongPressThumpButton()
@@ -161,8 +189,8 @@ namespace Jambav.Settings
                 () => { OnSettingToggled?.Invoke(); });
         #else
             HandleSimultaneousLongPress(
-                toggleButtonVrDevice[0],
-                 toggleButtonVrDevice[1],
+                toggleButtonVRDevice[0],
+                 toggleButtonVRDevice[1],
                 ref comboPressing,
                 ref totalComboDownTime,
                 clickDuration,
@@ -295,11 +323,12 @@ namespace Jambav.Settings
             if (Input.GetKey(keyA) && Input.GetKey(keyB))
             {
                 totalDownTime += Time.deltaTime;
-                // Debug.Log($"Holding... {totalDownTime:F2}s / {duration}s");
+                Debug.Log($"Holding... {totalDownTime:F2}s / {duration}s");
                 if (totalDownTime >= duration)
                 {
                     isPressing = false;
                     onLongPress?.Invoke();
+                    Debug.Log("Long press");
                     return true;
                 }
             }

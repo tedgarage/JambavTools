@@ -35,12 +35,12 @@ namespace Jambav.Settings
 
         if (string.IsNullOrWhiteSpace(code))
         {
-            ToastPanelHandler.sharedInstance.ShowToastMessage("Event code cannot be empty.", false);
+            ToastPanelHandler.sharedInstance.ShowToastMessage("Event code cannot be empty.", true);
             return;
         }
         if (!Regex.IsMatch(code, @"^[A-Za-z0-9_]+$"))
         {
-            ToastPanelHandler.sharedInstance.ShowToastMessage("Only letters, numbers and underscore (_) are allowed.", false);
+            ToastPanelHandler.sharedInstance.ShowToastMessage("Only letters, numbers and underscore (_) are allowed.", true);
             return;
         }
         LoaderPanelHandler.sharedInstance.ShowLoadingPanel(LoadingType.Sending);
@@ -85,9 +85,9 @@ namespace Jambav.Settings
         string code = SettingsManager.sharedInstance.GetEventCodePreference();
         if(code == "")
         {
-             EditButtonAction();
-            ShowActionButtons.Invoke(false);
-             
+            EditButtonAction();
+            ShowActionButtons?.Invoke(false);
+            print("Called");
         }
        else
         {

@@ -14,6 +14,8 @@ namespace Jambav.Settings
 
         public Action GameReadyToPlay;
         public Action OnRestartStart;
+        public Action OnSettingsOpened;
+        public Action OnSettingsClosed;
         
         
         private MessagePanelHandler messagePanelHandler;
@@ -64,18 +66,38 @@ namespace Jambav.Settings
         }
         private void SettingToggledAction()
         {
+            print("Settings Toggled");
+            print("internetConnectionValid: " + internetConnectionValid);
+            print("codeValid: " + codeValid);
+            print("deviceNameValid: " + deviceNameValid);
             if (internetConnectionValid && codeValid && deviceNameValid)
             {
-
-                mainCanvasHolder.SetActive(!mainCanvasHolder.activeSelf);
-                if (mainCanvasHolder.activeSelf)
+               
+                if (!mainCanvasHolder.activeSelf)
                 {
+                    Show();
                     SettingsUIController.sharedInstance.OpenSettings();
+                }
+                else
+                {
+                    Hide();
                 }
             }
         }
+
+        public void Hide()
+        {
+            mainCanvasHolder.SetActive(false);
+            OnSettingsClosed?.Invoke();
+        }
+         public void Show()
+        {
+            mainCanvasHolder.SetActive(true);
+            OnSettingsOpened?.Invoke();
+        }
         private void GameReadyAction(bool _firstTime = false)
         {
+            SettingsUIController.sharedInstance.EnableCloseButton();
             if (_firstTime)
                 SettingsUIController.sharedInstance.OpenAllSettings();
             else
