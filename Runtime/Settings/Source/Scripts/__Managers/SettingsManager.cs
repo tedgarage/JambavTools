@@ -7,10 +7,11 @@ namespace Jambav.Settings
 {
     public class SettingsManager : SingletonPersistent<SettingsManager>
     {
-
+    
         public LocalizationSelector LocalizationSelector;
         [SerializeField] string defaultBundleIdentifier = "com.jambav.vrzoho";
         [HideInInspector] public bool canViewSettings = true;
+        
 
         public Action GameReadyToPlay;
         public Action OnRestartStart;
@@ -21,16 +22,16 @@ namespace Jambav.Settings
         private MessagePanelHandler messagePanelHandler;
         private LoaderPanelHandler loaderPanelHandler;
         private ToastPanelHandler toastPanelHandler;
-        private GameObject mainCanvasHolder;
 
-
+        private GameObject settingsCanvas;
         private bool codeValid = false;
         private bool deviceNameValid = false;
         private bool internetConnectionValid = false;
         private string bundleName = "";
 
-        override protected void Awake()
+        protected override void Awake()
         {
+            
             base.Awake();
             Init();
             SetGameplayDataPath();
@@ -44,12 +45,12 @@ namespace Jambav.Settings
         }
         private void Init()
         {
-            mainCanvasHolder = GameObject.Find("MainCanvasHolder");
-            if (mainCanvasHolder == null)
+            settingsCanvas = transform.GetComponentInChildren<Canvas>().gameObject;
+            if (settingsCanvas == null)
             {
-                throw new Exception("MainCanvasHolder not found");
+                throw new Exception("SettingsCanvas not found");
             }
-            var handlerScripts = GameObject.Find("HandlerScripts");
+            var handlerScripts = settingsCanvas.transform.Find("ScriptsHandler");
             if (handlerScripts == null)
             {
                 throw new Exception("HandlersScripts not found");
@@ -73,10 +74,10 @@ namespace Jambav.Settings
             if (internetConnectionValid && codeValid && deviceNameValid)
             {
                
-                if (!mainCanvasHolder.activeSelf)
+                if (!settingsCanvas.activeSelf)
                 {
                     Show();
-                    SettingsUIController.sharedInstance.OpenSettings();
+                    SettingsPagesHandler.sharedInstance.OpenSettings();
                 }
                 else
                 {
@@ -87,21 +88,21 @@ namespace Jambav.Settings
 
         public void Hide()
         {
-            mainCanvasHolder.SetActive(false);
+            settingsCanvas.SetActive(false);
             OnSettingsClosed?.Invoke();
         }
          public void Show()
         {
-            mainCanvasHolder.SetActive(true);
+            settingsCanvas.SetActive(true);
             OnSettingsOpened?.Invoke();
         }
         private void GameReadyAction(bool _firstTime = false)
         {
-            SettingsUIController.sharedInstance.EnableCloseButton();
+            SettingsPagesHandler.sharedInstance.EnableCloseButton();
             if (_firstTime)
-                SettingsUIController.sharedInstance.OpenAllSettings();
+                SettingsPagesHandler.sharedInstance.OpenAllSettings();
             else
-                mainCanvasHolder.SetActive(false);
+                settingsCanvas.SetActive(false);
             GameReadyToPlay?.Invoke();
         }
         private void CheckInternetConnectionSettingInit()
@@ -189,11 +190,11 @@ namespace Jambav.Settings
         private void OpenSettingsForEventCode()
         {
             loaderPanelHandler.HideLoadingPanel();
-            SettingsUIController.sharedInstance.OpenEventCodePage();
+            SettingsPagesHandler.sharedInstance.OpenEventCodePage();
         }
         private void OpenSettingsForDeviceName()
         {
-            SettingsUIController.sharedInstance.OpenDeviceNamePage();
+            SettingsPagesHandler.sharedInstance.OpenDeviceNamePage();
         }
 
         private void ShowSettingsPopUp()
@@ -255,7 +256,7 @@ namespace Jambav.Settings
 
         internal void DeviceNameFirstUpdated()
         {
-            SettingsUIController.sharedInstance.OpenAllSettings();
+            SettingsPagesHandler.sharedInstance.OpenAllSettings();
             deviceNameValid = true;
             GameReadyAction(true);
         }

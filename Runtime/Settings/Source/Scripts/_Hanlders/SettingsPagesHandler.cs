@@ -6,7 +6,8 @@ using UnityEngine;
 
 namespace Jambav.Settings
 {
-    public class SettingsUIController : Singleton<SettingsUIController>
+
+    public class SettingsPagesHandler : Singleton<SettingsPagesHandler>
     {
         [SerializeField] private Transform panel;
         [SerializeField] private GameObject buttonPrefab;
@@ -24,6 +25,10 @@ namespace Jambav.Settings
 
         void Start()
         {
+            closeButtonCanvasGroup.GetComponent<UnityEngine.UI.Button>().onClick.AddListener(() =>
+            {
+                SettingsManager.sharedInstance.Hide();
+            });
             InitSettings();
         }
 
@@ -161,7 +166,7 @@ namespace Jambav.Settings
         }
         private void HideActionButtons()
         {
-            print("Going to hide buttons");
+            
             saveButton.gameObject.SetActive(false);
             revertButton.gameObject.SetActive(false);
         }

@@ -323,7 +323,7 @@ namespace Jambav.Settings
             if (Input.GetKey(keyA) && Input.GetKey(keyB))
             {
                 totalDownTime += Time.deltaTime;
-                Debug.Log($"Holding... {totalDownTime:F2}s / {duration}s");
+                // Debug.Log($"Holding... {totalDownTime:F2}s / {duration}s");
                 if (totalDownTime >= duration)
                 {
                     isPressing = false;
