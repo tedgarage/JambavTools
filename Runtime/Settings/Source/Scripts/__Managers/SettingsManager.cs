@@ -10,7 +10,9 @@ namespace Jambav.Settings
     
         public LocalizationSelector LocalizationSelector;
         [SerializeField] string defaultBundleIdentifier = "com.jambav.vrzoho";
-        [HideInInspector] public bool canViewSettings = true;
+        [SerializeField]private GameObject settingsCanvas;
+        
+        [SerializeField] private bool canViewSettingsForDebug = true;
         
 
         public Action GameReadyToPlay;
@@ -23,7 +25,7 @@ namespace Jambav.Settings
         private LoaderPanelHandler loaderPanelHandler;
         private ToastPanelHandler toastPanelHandler;
 
-        private GameObject settingsCanvas;
+        
         private bool codeValid = false;
         private bool deviceNameValid = false;
         private bool internetConnectionValid = false;
@@ -33,23 +35,23 @@ namespace Jambav.Settings
         {
             
             base.Awake();
+            print("SettingsManager Awake");
             Init();
             SetGameplayDataPath();
-
+            
 
         }
         private void Start()
         {
+             print("SettingsManager Start");
             SettingsInputController.sharedInstance.OnSettingToggled += SettingToggledAction;
             CheckInternetConnectionSettingInit();
+            Show();
         }
         private void Init()
         {
-            settingsCanvas = transform.GetComponentInChildren<Canvas>().gameObject;
-            if (settingsCanvas == null)
-            {
-                throw new Exception("SettingsCanvas not found");
-            }
+            print("Initializing SettingsManager");
+            
             var handlerScripts = settingsCanvas.transform.Find("ScriptsHandler");
             if (handlerScripts == null)
             {
@@ -71,7 +73,8 @@ namespace Jambav.Settings
             print("internetConnectionValid: " + internetConnectionValid);
             print("codeValid: " + codeValid);
             print("deviceNameValid: " + deviceNameValid);
-            if (internetConnectionValid && codeValid && deviceNameValid)
+
+            if ((internetConnectionValid && codeValid && deviceNameValid) || canViewSettingsForDebug)
             {
                
                 if (!settingsCanvas.activeSelf)
@@ -88,21 +91,24 @@ namespace Jambav.Settings
 
         public void Hide()
         {
+            print("hide Settings............");
             settingsCanvas.SetActive(false);
             OnSettingsClosed?.Invoke();
         }
          public void Show()
         {
+            print("Showing Settings...........");
             settingsCanvas.SetActive(true);
             OnSettingsOpened?.Invoke();
         }
         private void GameReadyAction(bool _firstTime = false)
         {
+        
             SettingsPagesHandler.sharedInstance.EnableCloseButton();
             if (_firstTime)
                 SettingsPagesHandler.sharedInstance.OpenAllSettings();
             else
-                settingsCanvas.SetActive(false);
+               Hide();
             GameReadyToPlay?.Invoke();
         }
         private void CheckInternetConnectionSettingInit()

@@ -56,14 +56,14 @@ public class AutoFontAssigner : MonoBehaviour
             textMeshPro.font = fontAsset;
             EditorUtility.SetDirty(textMeshPro);
             
-            Debug.Log($"[AutoFontAssigner] Successfully assigned SDF font asset: {fontAsset.name} to {gameObject.name}");
+            // Debug.Log($"[AutoFontAssigner] Successfully assigned SDF font asset: {fontAsset.name} to {gameObject.name}");
         }
         else
         {
-            Debug.LogWarning($"[AutoFontAssigner] SDF font asset not found at: {fontAssetPath}\n" +
-                           $"Please ensure the font '{sourceFont.name}' has a generated SDF asset in " +
-                           $"{ProjectFontAssetsFolder}/\n" +
-                           $"Import the font file from the package to generate it automatically.");
+            // Debug.LogWarning($"[AutoFontAssigner] SDF font asset not found at: {fontAssetPath}\n" +
+            //                $"Please ensure the font '{sourceFont.name}' has a generated SDF asset in " +
+            //                $"{ProjectFontAssetsFolder}/\n" +
+            //                $"Import the font file from the package to generate it automatically.");
         }
     }
 
