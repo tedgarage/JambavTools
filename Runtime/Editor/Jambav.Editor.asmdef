@@ -2,7 +2,9 @@
     "name": "Jambav.Editor",
     "rootNamespace": "",
     "references": [
-       "Unity.Localization"
+        "Unity.Localization",
+        "Unity.TextMeshPro",
+        "Unity.TextMeshPro.Editor"
     ],
     "includePlatforms": [
         "Editor"
