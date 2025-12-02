@@ -64,9 +64,6 @@ namespace Jambav.FirebaseWrapper
                     }
 
                     FirebaseUser newUser = task.Result.User;
-                    Debug.Log(task.Result.User);
-                    Debug.LogFormat("User signed in successfully: {0} ({1})",
-                        newUser.DisplayName, newUser.UserId);
                     __callback?.Invoke(newUser);
                 });
             }
