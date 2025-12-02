@@ -53,7 +53,8 @@ namespace Jambav.Settings
     {
 
         RestartGameInput();
-        LongPressThumbAndTrigger();
+       if (SettingsManager.sharedInstance.canViewSettings)
+            LongPressThumbAndTrigger();
 
     }
 
