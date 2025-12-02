@@ -8,7 +8,9 @@ using UnityEngine.TextCore.LowLevel;
 public class FontAssetPostprocessor : AssetPostprocessor
 {
     static readonly string FontsFolder = "Runtime/Resources/SettingsFonts/";
-    static readonly string GeneratedAssetsFolderName = "GeneratedAssets";
+    // Project-specific folder outside the package (in the project's Assets root)
+    static readonly string ProjectFontAssetsFolder = "Assets/JambavTools/Settings/FontAssets";
+    
     static void OnPostprocessAllAssets(
         string[] importedAssets,
         string[] deletedAssets,
@@ -31,34 +33,32 @@ public class FontAssetPostprocessor : AssetPostprocessor
         Font sourceFont = AssetDatabase.LoadAssetAtPath<Font>(fontPath);
         if (sourceFont == null) return;
 
-        // Get the directory and filename
-        string directory = Path.GetDirectoryName(fontPath);
+        // Get the filename
         string fileName = Path.GetFileNameWithoutExtension(fontPath);
         
-        // Create the GeneratedAssets subfolder path
-        string generatedAssetsFolder = Path.Combine(directory, GeneratedAssetsFolderName);
-        string generatedAssetsFolderPath = generatedAssetsFolder.Replace('\\', '/');
-        
-        // Ensure the GeneratedAssets directory exists
-        if (!Directory.Exists(generatedAssetsFolderPath))
+        // Ensure the project-specific FontAssets directory exists
+        // Create full directory structure if it doesn't exist
+        if (!Directory.Exists(ProjectFontAssetsFolder))
         {
-            Directory.CreateDirectory(generatedAssetsFolderPath);
+            // Create all parent directories if they don't exist
+            Directory.CreateDirectory(ProjectFontAssetsFolder);
+            
+            // Create .gitkeep file to ensure the folder is tracked in git
+            string gitkeepPath = Path.Combine(ProjectFontAssetsFolder, ".gitkeep");
+            File.WriteAllText(gitkeepPath, "");
+            
             AssetDatabase.Refresh();
+            Debug.Log($"[FontAssetPostprocessor] Created project font assets folder: {ProjectFontAssetsFolder}");
         }
         
-        // Create SDF font asset path in GeneratedAssets folder
-        string fontAssetPath = Path.Combine(generatedAssetsFolderPath, fileName + " SDF.asset").Replace('\\', '/');
-        
-        // Check if already exists using Resources path (relative to Resources folder)
-        // Extract the path relative to Resources folder
-        string resourcesPath = fontAssetPath.Substring(fontAssetPath.IndexOf("Resources/") + "Resources/".Length);
-        resourcesPath = resourcesPath.Replace(".asset", ""); // Remove .asset extension for Resources.Load
+        // Create SDF font asset path in project folder
+        string fontAssetPath = Path.Combine(ProjectFontAssetsFolder, fileName + " SDF.asset").Replace('\\', '/');
         
         // Check if the asset already exists
-        TMP_FontAsset existingAsset = Resources.Load<TMP_FontAsset>(resourcesPath);
+        TMP_FontAsset existingAsset = AssetDatabase.LoadAssetAtPath<TMP_FontAsset>(fontAssetPath);
         if (existingAsset != null)
         {
-            Debug.Log($"SDF Font Asset already exists: {fontAssetPath}");
+            Debug.Log($"[FontAssetPostprocessor] SDF Font Asset already exists: {fontAssetPath}");
             return;
         }
 

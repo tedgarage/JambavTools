@@ -208,8 +208,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Utility Settings
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: c276efaa1a37d4b8792deb05bd0afc74, type: 2}
-  m_sharedMaterial: {fileID: -5979272485944638426, guid: c276efaa1a37d4b8792deb05bd0afc74, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: cee53c27ff65343daa8fe00134ef4d42, type: 2}
+  m_sharedMaterial: {fileID: -6278001720589651102, guid: cee53c27ff65343daa8fe00134ef4d42, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -598,9 +598,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 7465415248254249575}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 48, y: -32}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 32, y: 32}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3873424112071109284
@@ -6694,8 +6694,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Settings Saved datadsjfklasflksafsa
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 6fe380e80684c434ca231f7acfc3b4fd, type: 2}
-  m_sharedMaterial: {fileID: -6360613754994768108, guid: 6fe380e80684c434ca231f7acfc3b4fd, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 81eb0b39f311c42298a2b2a1024a6981, type: 2}
+  m_sharedMaterial: {fileID: 524706076079032931, guid: 81eb0b39f311c42298a2b2a1024a6981, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -7655,7 +7655,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &7465415248254249575
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7676,7 +7676,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -2.98, y: -593.69995}
-  m_SizeDelta: {x: 440.47, y: 64}
+  m_SizeDelta: {x: 0, y: 64}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4229297257035912074
 CanvasRenderer:
@@ -8667,8 +8667,8 @@ MonoBehaviour:
 
 '
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 6fe380e80684c434ca231f7acfc3b4fd, type: 2}
-  m_sharedMaterial: {fileID: -6360613754994768108, guid: 6fe380e80684c434ca231f7acfc3b4fd, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 81eb0b39f311c42298a2b2a1024a6981, type: 2}
+  m_sharedMaterial: {fileID: 524706076079032931, guid: 81eb0b39f311c42298a2b2a1024a6981, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

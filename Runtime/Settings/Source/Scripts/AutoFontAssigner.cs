@@ -3,10 +3,6 @@ using TMPro;
 using UnityEditor;
 using System.IO;
 
-/// <summary>
-/// Automatically assigns the generated SDF font asset to TextMeshProUGUI
-/// when a TTF or OTF font file is assigned to this component.
-/// </summary>
 [RequireComponent(typeof(TextMeshProUGUI))]
 [ExecuteInEditMode]
 public class AutoFontAssigner : MonoBehaviour
@@ -17,8 +13,8 @@ public class AutoFontAssigner : MonoBehaviour
     
     private TextMeshProUGUI textMeshPro;
     private Font lastSourceFont;
-    // Resources path (relative to Resources folder)
-    static readonly string ResourcesPath = "SettingsFonts/GeneratedAssets/{0} SDF";
+    // Project-specific folder path (outside the package)
+    static readonly string ProjectFontAssetsFolder = "Assets/JambavTools/Settings/FontAssets";
 
 
 #if UNITY_EDITOR
@@ -47,11 +43,11 @@ public class AutoFontAssigner : MonoBehaviour
         if (sourceFont == null || textMeshPro == null)
             return;
 
-        // Generate the Resources path for the SDF font asset
-        string resourcePath = string.Format(ResourcesPath, sourceFont.name);
+        // Generate the asset path for the SDF font asset
+        string fontAssetPath = $"{ProjectFontAssetsFolder}/{sourceFont.name} SDF.asset";
 
-        // Load the SDF font asset from Resources
-        TMP_FontAsset fontAsset = Resources.Load<TMP_FontAsset>(resourcePath);
+        // Load the SDF font asset from project folder
+        TMP_FontAsset fontAsset = AssetDatabase.LoadAssetAtPath<TMP_FontAsset>(fontAssetPath);
 
         if (fontAsset != null)
         {
@@ -60,13 +56,14 @@ public class AutoFontAssigner : MonoBehaviour
             textMeshPro.font = fontAsset;
             EditorUtility.SetDirty(textMeshPro);
             
-             Debug.Log($"[AutoFontAssigner] Successfully assigned SDF font asset: {fontAsset.name} to {gameObject.name}");
+            Debug.Log($"[AutoFontAssigner] Successfully assigned SDF font asset: {fontAsset.name} to {gameObject.name}");
         }
         else
         {
-            Debug.LogWarning($"[AutoFontAssigner] SDF font asset not found at Resources path: {resourcePath}\n" +
+            Debug.LogWarning($"[AutoFontAssigner] SDF font asset not found at: {fontAssetPath}\n" +
                            $"Please ensure the font '{sourceFont.name}' has a generated SDF asset in " +
-                           $"Runtime/Resources/SettingsFonts/GeneratedAssets/");
+                           $"{ProjectFontAssetsFolder}/\n" +
+                           $"Import the font file from the package to generate it automatically.");
         }
     }
 
