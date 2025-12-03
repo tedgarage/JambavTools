@@ -14,7 +14,7 @@ namespace Jambav.Settings
     public Action OnSettingToggled;
 
     [Header("Restart Game")]
-    private bool restartedCompleted = true;
+    
     private int currentPressedButtonIndex = -1;
 
     // Game restart button Sequence
@@ -72,7 +72,7 @@ namespace Jambav.Settings
 
     private void RestartGameInput()
     {
-        if (!restartedCompleted) return;
+        if (!SettingsManager.sharedInstance.restartedCompleted) return;
 
             // Split logic between VR (OVRInput) and Editor/standalone (KeyCode/Input)
             if (IsVR())
@@ -359,12 +359,12 @@ namespace Jambav.Settings
     private IEnumerator RestartGame()
     {
         print("Restarting Game");
-        restartedCompleted = false;
+        SettingsManager.sharedInstance.restartedCompleted = false;
         SettingsManager.sharedInstance.OnRestartStart?.Invoke();
         yield return new WaitForSeconds(1f);
         ReloadScene();
         yield return new WaitForSeconds(2);
-        restartedCompleted = true;
+        SettingsManager.sharedInstance.restartedCompleted = true;
         
         if(SettingsManager.sharedInstance.DoseGameReadyToPlay())
         {

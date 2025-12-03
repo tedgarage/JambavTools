@@ -67,14 +67,12 @@ namespace Jambav.Settings
             {
                 if (selectedIndex != -1)
                     deviceButtons[selectedIndex].currentState = ButtonState.Normal;
+
                 deviceButtons[index].currentState = ButtonState.Selected;
                 selectedIndex = index;
                 ShowActionButtons.Invoke(false);
             }
-            else
-            {
-                HideActionButtons.Invoke();
-            }
+           
 
         }
 

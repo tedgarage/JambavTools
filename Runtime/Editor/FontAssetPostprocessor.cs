@@ -69,11 +69,11 @@ public class FontAssetPostprocessor : AssetPostprocessor
         // We'll populate it immediately to generate the atlas
         TMP_FontAsset fontAsset = TMP_FontAsset.CreateFontAsset(
             sourceFont,
-            90,   // Sampling point size
-            4,    // Padding
+            120,   // Sampling point size
+            9,    // Padding
             GlyphRenderMode.SDFAA,
-            1024, // Atlas width
-            1024, // Atlas height
+            2048, // Atlas width
+            2048, // Atlas height
             AtlasPopulationMode.Dynamic, // Dynamic mode allows runtime addition
             true  // enableMultiAtlasSupport
         );

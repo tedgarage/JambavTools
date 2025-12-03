@@ -62,6 +62,7 @@ namespace Jambav.Settings
                 deviceButtons[i].currentState = ButtonState.Normal;
             }
         }
+         HideActionButtons.Invoke();
     }
 
     private void ButtonPressed(int index)
@@ -73,11 +74,9 @@ namespace Jambav.Settings
             deviceButtons[index].currentState = ButtonState.Selected;
             selectedIndex = index;
             ShowActionButtons.Invoke(false);
+
         }
-        else
-        {
-            HideActionButtons.Invoke();
-        }
+       
 
     }
 
@@ -96,6 +95,8 @@ namespace Jambav.Settings
     public override void SaveActionDone()
     {
         SettingsManager.sharedInstance.LocalizationSelector.ChangeLocale(selectedIndex);
+         
+        ToastPanelHandler.sharedInstance.ShowToastMessage("Language has been changed.");
     }
 }
 }

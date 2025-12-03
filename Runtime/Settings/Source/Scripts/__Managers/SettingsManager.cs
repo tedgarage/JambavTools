@@ -13,7 +13,9 @@ namespace Jambav.Settings
         [SerializeField]private GameObject settingsCanvas;
         
         [SerializeField] private bool canViewSettingsForDebug = true;
+        [HideInInspector]public bool restartedCompleted = true;
         [HideInInspector] public bool canViewSettings = true;
+        [HideInInspector] public bool showTutorial = true;
         
 
         public Action GameReadyToPlay;
