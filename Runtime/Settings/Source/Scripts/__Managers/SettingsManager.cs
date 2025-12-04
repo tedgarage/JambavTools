@@ -285,7 +285,7 @@ namespace Jambav.Settings
         }
          public string GamePlayDataPathWithDeviceName()
         {
-            return PlayerPrefs.GetString(CommonConstants.gameplayDataPathKey, "") + "DEVICES_DATA/" + GetDeviceName();
+            return PlayerPrefs.GetString(CommonConstants.gameplayDataPathKey, "") + "/DEVICES_DATA/" + GetDeviceName();
         }
         internal bool DoseTheSettingsOpen()
         {
