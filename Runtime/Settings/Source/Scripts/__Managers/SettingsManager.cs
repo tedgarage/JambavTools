@@ -109,7 +109,7 @@ namespace Jambav.Settings
         
             SettingsPagesHandler.sharedInstance.EnableCloseButton();
             if (_firstTime)
-                SettingsPagesHandler.sharedInstance.OpenAllSettings();
+                messagePanelHandler.SetErrorMessage("Game is Ready!", "Essential setups are done. You can close the settings and use the game now.", actionButtonText: "Done", action: null);
             else
                Hide();
             GameReadyToPlay?.Invoke();
@@ -199,7 +199,7 @@ namespace Jambav.Settings
         private void OpenSettingsForEventCode()
         {
             loaderPanelHandler.HideLoadingPanel();
-            SettingsPagesHandler.sharedInstance.OpenEventCodePage();
+            SettingsPagesHandler.sharedInstance.OpenEventCodePage(true);
         }
         private void OpenSettingsForDeviceName()
         {
@@ -268,6 +268,7 @@ namespace Jambav.Settings
             SettingsPagesHandler.sharedInstance.OpenAllSettings();
             deviceNameValid = true;
             GameReadyAction(true);
+
         }
         internal void EventCodeFirstUpdated()
         {
@@ -281,6 +282,23 @@ namespace Jambav.Settings
         public string GamePlayDataPath()
         {
             return PlayerPrefs.GetString(CommonConstants.gameplayDataPathKey, "");
+        }
+
+        internal bool DoseTheSettingsOpen()
+        {
+            return settingsCanvas.activeSelf;
+        }
+
+        internal void EventCodeUpdated()
+        {
+            print("Event code updated-------------------------");
+            codeValid = true;
+            SettingsPagesHandler.sharedInstance.OpenAllSettings();
+            
+            if(CheckDeviceName())
+            {
+                GameReadyAction();
+            }
         }
 
         #endregion

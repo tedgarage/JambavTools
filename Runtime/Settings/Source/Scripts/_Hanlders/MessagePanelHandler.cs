@@ -40,7 +40,6 @@ namespace Jambav.Settings
         {
             messageParent.gameObject.SetActive(false);
         }
-
         OnActionButtonClicked?.Invoke();
     }
 }

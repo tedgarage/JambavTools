@@ -51,8 +51,8 @@ namespace Jambav.Settings
         // Update is called once per frame
         void Update()
         {
-
-            RestartGameInput();
+            if(!SettingsManager.sharedInstance.DoseTheSettingsOpen())
+                RestartGameInput();
             if (SettingsManager.sharedInstance.canViewSettings)
                 LongPressThumbAndTrigger();
 

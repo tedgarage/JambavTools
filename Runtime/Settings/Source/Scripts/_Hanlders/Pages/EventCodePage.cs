@@ -22,6 +22,7 @@ namespace Jambav.Settings
         eventCodeInputField.gameObject.SetActive(true);
         textHolder.gameObject.SetActive(false);
         ShowActionButtons.Invoke(true);
+        eventCodeInputField.ActivateInputField();
     }
     public override void RevertActionDone()
     {
@@ -63,6 +64,10 @@ namespace Jambav.Settings
                 HideActionButtons.Invoke();
                 if(itsFistTime)
                     SettingsManager.sharedInstance.EventCodeFirstUpdated();
+                else
+                {
+                    SettingsManager.sharedInstance.EventCodeUpdated();
+                }
             }
             else
             {
@@ -97,6 +102,15 @@ namespace Jambav.Settings
             eventCodeText.text = code;
             expiredDateText.text = SettingsManager.sharedInstance.GetExpireDatePreference().ToShortDateString();
         }
+        
+    }
+     public void SetUpPageForEdit()
+    {
+
+       
+            EditButtonAction();
+            ShowActionButtons?.Invoke(false);
+       
         
     }
     private void SetData()

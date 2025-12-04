@@ -140,12 +140,20 @@ namespace Jambav.Settings
             SettingsManager.sharedInstance.OnSettingsOpened?.Invoke();
         }
 
-        internal void OpenEventCodePage()
+        internal void OpenEventCodePage(bool openForEdit = false)
         {
             EnableButtons(new List<SettingOption> { SettingOption.Event_Code });
             print((int)SettingOption.Event_Code);
             EventCodePage eventCodePage = pages[(int)SettingOption.Event_Code] as EventCodePage;
-            eventCodePage.SetUpPage();
+            if(openForEdit)
+            {
+                eventCodePage.SetUpPageForEdit();
+            }
+            else
+            {
+                eventCodePage.SetUpPage();
+            }
+            
 
 
             ShowSettingsPopUp();
@@ -207,8 +215,8 @@ namespace Jambav.Settings
     {
         Event_Code,
         Device_Color,
-        Shortcuts,
         Language,
+        Shortcuts,
         // Utility_Settings
     }
 }
