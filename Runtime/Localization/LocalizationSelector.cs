@@ -14,6 +14,10 @@ namespace Jambav.Localization
         #region PLAYER PREFS
 
         private string localeKey = "LocaleKey";
+        public void Start()
+        {
+            LoadLocale();
+        }
         public int GetSelectedLocale()
         {
             int id = PlayerPrefs.GetInt(localeKey, 0);
